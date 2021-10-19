@@ -41,50 +41,92 @@ def create_movie (quantityF, quantityS):
     storage= create_film(quantityF)+create_series(quantityS)
     return storage
 
-def get_film(title,year):
+def get_film_info(title,year):
         film_info=''
         return film_info+title+'('+str(year)+')'
 
-def get_series(title,season,episode):
+def get_series_info(title,season,episode):
         series_info=''
         return series_info+title+' '+'S'+str(season)+'E'+str(episode)
+
+def get_movies(film_series):
+        storage3=[]
+        for v in range (0,9):
+            if isinstance(v,Film):
+                 film1=film_series[v]
+                 storage3.append(film1)
+        
+        by_title = sorted(storage3, key=lambda Series: Series.title)
+        return by_title
+
+
+def get_series(film_series):
+        storage4=[]
+        for w in range (0,9):
+            if isinstance(w,Series):
+                 series1=film_series[w]
+                 storage4.append(series1)
+        by_title = sorted(storage4, key=lambda Film: Film.title)
+        return by_title
 
 def play(play_number):
        play_number+=1
        return play_number
-def get_film_t(title):
-        film_info=''
-        return film_info+title
-def search_f(title):
-       if get_film_t(title) == title:
-          return title
-def get_series_t(title):
-        series_info=''
-        return series_info+title 
-def search_s(title):
-    if get_series_t(title) == title:
-        return title
 
+def search(film_series,title):
+    ver=2<1
+    for k in range(1,10):
+        if film_series[k].title==title:
+            print('Film jest w bibliotece')
+            ver=2>1
+            return film_series[k]
+    if not ver:
+        print('Filmu nie ma w bibliotece')
+  
+          
 def generate_views(film_series):
-    random.shuffle(film_series)
-    film_series.play_number[1]=randint(1,100)
-def generate_views_10(film_series):
-    for i in range(0,9):
-     generate_views(film_series)
+    u=0
+    z=randint(1,10)
+    film_series[z].play_number=randint(1,100)
+    u=film_series[z].play_number
+    return u
+
 def top_titles (film_series):
     storage=[]
     storage=film_series.sort(key=lambda film_series: film_series.play_number)
-    return storage     
+    return storage
+
 print("Biblioteka filmów")
+
 movie=create_movie(5,5)
 for i in movie:
     print(i.title)
     print(i.type)
     print(i.year)
-    print(i.play_number)   
+    print(i.play_number)
     print(play(i.play_number))
-    print(get_film(i.title,i.year))
-    print(get_series(i.title,i.season,i.episode))
+    if isinstance(i, Film):
+      print(get_film_info(i.title,i.year))
+    if isinstance(i, Series):
+      print(get_series_info(i.title,i.season,i.episode))
+print(generate_views(movie))
+search(movie,'Kill Bill')
+for x in get_movies(movie):
+    print(x.title)
+    print(x.type)
+    print(x.year)
+    print(x.play_number)
+for y in get_series(movie):
+    print(y.title)
+    print(y.type)
+    print(y.year)
+    print(y.play_number)
+
+
+
+
+
+
 #movie_top=top_titles(movie)
 #for j in movie_top:
     #print(j.title)
@@ -94,11 +136,6 @@ for i in movie:
     #print(play(j.play_number))
     #print(get_film(j.title,j.year))
     #print(get_series(j.title,j.season,j.episode))
-
-
-
-
-
 
 
  
